@@ -1,6 +1,3 @@
-#define ARDUINO_ARCH_ESP32
-#define ESP32
-
 #include "config.h"
 
 void setup() {

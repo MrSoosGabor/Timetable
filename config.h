@@ -1,3 +1,5 @@
+#include "secrets.h"
+
 // Uncomment for development
 #define DEBUG
 
@@ -125,17 +127,10 @@ Period *normPeriodusok[16] ={
 #include <ESP_Google_Sheet_Client.h>
 #include <GS_SDHelper.h>
 
-// Google Project ID
-#define PROJECT_ID "timetable-battery-levels"
-
-// Service Account's client email
-#define CLIENT_EMAIL "timetable-battery-levels@timetable-battery-levels.iam.gserviceaccount.com"
-
-// Service Account's private key
-const char PRIVATE_KEY[] PROGMEM = "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCYdjho3y765EBW\n8ri7pDidljvS6GJrNIIA7RWUr2sdy4sgjiC74JbZN6eT4zpXFWGgeL7Jg3yLKRDs\n/5AtE5X+GXJJC5RQSwmvYoe6EP/Fmg2RAnCReZsVVml5AnXhYnAMY/lVDh4I69tC\nj0C8q9QlXENhNkOnffdp8RBWEUtqLgXfZdJwQZBeBVssso1Vl5mx6lLOUovXFaXI\n8/8DODMHu7EIe2RSFyYB9XU7jIjUDaVJ5Bxxn4TAO8grEBFJPgiyxr4gn2g8T/FM\n2pI0PhA/gaw7fZePVBxZIwM0xZQ9IAH5ZPLmft0KytZxYbnH0qj6uroJ1Yy4DlYN\nL3gL59XJAgMBAAECggEAGNeGeHwJJSNE4oX5GMX43aCJjeOEidBL8Iew8QGmM/wi\n5sKRzdsZ6TnaycuICYF331RdTetpQymFUwCPRvD+iyEtUH6dA3o+kT++OtCjRFjG\nJh8eJW4JmW/zjp6ag4dtF2/AxB2hQjXgC5fY5gUfc5j1d6UGYAez5SS80zFNNvcZ\nVKF+6fFwO4U2t/LJMczELUV+MpEtUvJRTNAVs9GS18MrxqQS0QLYMPNqUhD6MrWx\n3M+JQhbJJe8qY/xr9r1mY+ttkcfYjhl/REpH9EjWj26NpDzLjrcWTeawNoX3hDeW\ng7ZPEVIdjpPy0QCwWizuetLHPwQXp0F+RSZ1vR1/AwKBgQDPKs9E+DBEBYt8wvoc\nYE93sJUEiv7a/weVzl1J63k7o/ZqyDYmbiHITSrfZct/bunqZCEI2OM6iZlf4OPO\nb5SYS71HPvo2DZRr44o84uAMniwKsRo5lOE3uRLZ+Kkyj8VtKygmtw/zy2pA8o/v\nctFe0cHNwlTLoux2lSW/0JzkfwKBgQC8ZkuM/bLpJQfJHuY9L315Zjuz7smnkDQH\nxt5saF+3VjOKB0Psm0qM+YVCetoL7oih5KNADWOYN7SnxIaR9WcBcicq7b3ttC3g\noqIQkpFhg/0C9iZufukOuQso7hjbRA9lJrpBdcdgPCQHmRUNHPv/9MzPa5Y35fwv\npP6cUyQBtwKBgCbuiJ0RdyCRWjFMAuyqPMTlblu4M0S8gJRqf6WQluvaWEig72wx\nbi/SMKhi3OdJ1LOztXGQMMOjcCtQe/8jgO1N7nghIaxeyPGthSEEEc7NOsGXnrIL\nhHeQVDaaQFG8KwHlBlqgNGNAauthqiL5lNcY3C7qwjyylXWDeeCeN53JAoGAP6v+\n2p6fSaZHNFSqEYGsUUwY313TbzsQKpSudUrtFmQetQZxkVSGZJCr1eT5LlEmgjho\nZ+xefYJOHukPZeLfNiDjVeHVb7GWU7YDOcCfO6rE5qxUHsHreBtXxzR42Bnvbgsh\npZ/tivuoXZ0B/VWPYVjVo0BEG44xpdSIbEK5B48CgYBkbQjvP243it89CxFW7Fho\nE2ojQUPIoNVqb3FkW8QxvnEF9q1Vw5T47otsSQ4mY9JllnWpvNcqVj7n1n7LLg2D\naglMSdKT8Xi1lZZFDAKVFrsYug23TYlOJ/W7iJw8TpUbT7xy/P2nJpmNhqtwRhhe\nhxz0Nz3YxaPTBYCf/heQbw==\n-----END PRIVATE KEY-----\n";
+const char PRIVATE_KEY[] PROGMEM = GOOGLE_PRIVATE_KEY;
 
 // The ID of the spreadsheet where you'll publish the data
-const char spreadsheetId[] = "12lrVW-G6uZ1-vRiJYu9R-yj87K6MjOh1QlgkI_X6-rA";
+const char spreadsheetId[] = SPREADSHEET_ID;
 ////////////END BatteryLevel///////////////////////////
 
 #include "utilities.h"

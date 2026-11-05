@@ -1,13 +1,8 @@
 #include <ESP_Mail_Client.h>
+#include "secrets.h"
 
 #define SMTP_HOST "smtp.gmail.com"
 #define SMTP_PORT 587
-
-#define SENDER_EMAIL "jedlik.orarend@gmail.com"
-#define SENDER_PASSWORD "duzj roob gwsm xdwn"
-
-/* Recipient's email*/
-#define RECIPIENT_EMAIL "soos.gabor@jedlik.eu"
 
 /* Declare the global used SMTPSession object for SMTP transport */
 SMTPSession smtp;

@@ -2,12 +2,9 @@
 #include <WiFiClientSecure.h>
 #include <HTTPClient.h>
 #include <ESP32httpUpdate.h>
+#include "secrets.h"
 
 // WiFi hálózatok listája - próbálkozás sorrendjében
-const char *ssid[] = {"ASUS", "IoT005705", "jcs"};
-const char *password[] = {"KalapocskaNapocska", "WP1x5EUZgXWj2", "Jcsengo2023"};
-
-const int wifiNetworkCount = 2; // Hálózatok száma
 const int wifiTimeout = 20;     // Próbálkozási idő hálózatonként (másodperc)
 
 const char *fwImageURL = "http://zeus.jedlik.eu:8000/timetable.ino.bin";
