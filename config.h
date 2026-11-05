@@ -1,4 +1,5 @@
-#include "secrets.h"
+#pragma once
+#include <Arduino.h>
 
 // Uncomment for development
 #define DEBUG
@@ -22,18 +23,13 @@ String errorMessages[10] = { "", "A WiFi nem elérhető", "Az API nem elérhető
 int warningAccuLevel = 2000;   // Ha az órarend elemfeszültsége 3,45 Volt alá esik, akkor figyelmeztető emailt küldünk. Ilyenkor töltés szükséges!!!
 int criticalAccuLevel = 1900;  // Ha az órarend elemfeszültsége 3,35 Volt alá esik, akkor figyelmeztető emailt küldünk. Ilyenkor kritikus figyelmeztetést küldünk!!!
 int urgentAccuLevel = 1800;    // Ha az órarend elemfeszültsége 3,25 Volt alá esik, akkor figyelmeztető emailt küldünk. Ilyenkor sürgősen töltés szükséges!!! 3,2V-nál már nem tud frissülni az órarend!!!
-// FireBeetle 2 – univerzális ADC pin kiválasztás
+#define EINK_POWER_PIN 5  // Az E-ink vezérlő tápfeszültség-kapcsolója (ESP32-E-n ez a D8)
+
+// FireBeetle 2 ESP32 v4.0 és ESP32-E (DFR0654 / DFR0478) ADC pin
 #if defined(CONFIG_IDF_TARGET_ESP32)
-  // FireBeetle 2 ESP32 v4.0  és ESP32-E (DFR0654 / DFR0478)
   #define ANALOG_PIN 36
-  //#pragma message("Target: ESP32 detected → Using ANALOG_PIN = GPIO36")
-#elif defined(CONFIG_IDF_TARGET_ESP32C6)
-  // FireBeetle 2 ESP32-C6 (DFR1095)
-  // ESP32-C6-on NINCS IO36, ezért más lábat kell használni
-  #define ANALOG_PIN 4  // van beépített akkuellenőrző pin ADC bemenet ESP32-C6-on (nincs kivezetve!), ez lineárisan! teszteli az akku állapotát, de az egységes kezelés miatt ezen a lapkán is saját fesz. osztót forrasztunk be a 4-es pinre
-  //#pragma message("Target: ESP32-C6 detected → Using ANALOG_PIN = GPIO4")
 #else
-  #error "Ismeretlen ESP32 verzió – kérlek add meg pontosan a board típust!"
+  #error "Csak az ESP32 (v4.0 / ESP32-E) board támogatott!"
 #endif
 
 
@@ -41,7 +37,6 @@ int urgentAccuLevel = 1800;    // Ha az órarend elemfeszültsége 3,25 Volt al�
 #include <sys/time.h>
 #include <stdlib.h>
 #include <HTTPClient.h>
-#include "wifiLoad.h"
 #include <ArduinoJson.h>
 #include "classes.h"
 
@@ -122,20 +117,3 @@ Period *normPeriodusok[16] ={
   new Period(13, "18:15", "18:55"),
   new Period(14, "19:00", "19:40")
 };
-
-/////////////BEGIN BatteryLevel//////////////////////
-#include <ESP_Google_Sheet_Client.h>
-#include <GS_SDHelper.h>
-
-const char PRIVATE_KEY[] PROGMEM = GOOGLE_PRIVATE_KEY;
-
-// The ID of the spreadsheet where you'll publish the data
-const char spreadsheetId[] = SPREADSHEET_ID;
-////////////END BatteryLevel///////////////////////////
-
-#include "utilities.h"
-#include "periodsLoad.h"
-#include "cardsLoad.h"
-#include "drawing.h"
-#include "sendBatteryData.h"
-#include "sendEmail.h"

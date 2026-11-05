@@ -1,17 +1,11 @@
 #pragma once
 
-// Copy this file to secrets.h and replace the empty values with rotated credentials.
-// Never commit secrets.h.
+// Másold ezt a fájlt secrets.h néven, és töltsd ki a saját (cserélt) hitelesítő adataiddal.
+// A secrets.h-t a Git figyelmen kívül hagyja, soha ne commitold!
 static const char *ssid[] = {"", "", ""};
 static const char *password[] = {"", "", ""};
-static const int wifiNetworkCount = 2;
+static const int wifiNetworkCount = 3;  // A ténylegesen használt hálózatok száma
 
-#define PROJECT_ID ""
-#define CLIENT_EMAIL ""
-// Keep the PEM in one C string literal; represent line breaks as \n.
-#define GOOGLE_PRIVATE_KEY ""
-#define SPREADSHEET_ID ""
-
-#define SENDER_EMAIL ""
-#define SENDER_PASSWORD ""
-#define RECIPIENT_EMAIL ""
+#define SENDER_EMAIL ""      // Gmail cím, amelyről a figyelmeztető emailt küldjük
+#define SENDER_PASSWORD ""   // A Gmail fiók alkalmazásjelszava
+#define RECIPIENT_EMAIL ""   // A figyelmeztető email címzettje

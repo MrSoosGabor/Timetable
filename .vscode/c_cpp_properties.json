@@ -5,16 +5,18 @@
             "includePath": [
                 "${workspaceFolder}",
                 "${workspaceFolder}/fontos",
-                "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.5\\cores\\esp32",
-                "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.5\\cores\\esp32\\**",
-                "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.5\\variants\\**",
-                "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.5\\libraries\\**",
-                "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp-x32\\2511\\include",
-                "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp-x32\\2511\\xtensa-esp-elf\\include",
-                "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-arduino-libs\\idf-release_v5.5-9bb7aa84-v2\\esp32\\include\\**",
-                "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-arduino-libs\\idf-release_v5.5-9bb7aa84-v2\\esp32\\qio_qspi\\include",
-                "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-arduino-libs\\idf-release_v5.5-9bb7aa84-v2\\esp32c6\\include\\**",
-                "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-arduino-libs\\idf-release_v5.5-9bb7aa84-v2\\esp32c6\\qio_qspi\\include",
+                "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.12\\cores\\esp32",
+                "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.12\\cores\\esp32\\**",
+                "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.12\\variants\\dfrobot_firebeetle2_esp32e",
+                "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.12\\libraries\\**",
+                "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp-x32\\2601\\include",
+                "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp-x32\\2601\\xtensa-esp-elf\\include",
+                "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-libs\\3.3.12\\include\\lwip\\include",
+                "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-libs\\3.3.12\\include\\lwip\\port\\include",
+                "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-libs\\3.3.12\\include\\lwip\\port\\esp32xx\\include",
+                "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-libs\\3.3.12\\include\\lwip\\port\\freertos\\include",
+                "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-libs\\3.3.12\\include\\**",
+                "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-libs\\3.3.12\\qio_qspi\\include",
                 "C:\\Users\\malag\\AppData\\Local\\Arduino15\\libraries\\**",
                 "C:\\Users\\malag\\Documents\\Arduino\\libraries\\**"
             ],
@@ -25,9 +27,9 @@
                 "ARDUINO=10607"
             ],
             "forcedInclude": [
-                "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.5\\cores\\esp32\\Arduino.h"
+                "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.12\\cores\\esp32\\Arduino.h"
             ],
-            "compilerPath": "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp-x32\\2511\\bin\\xtensa-esp32-elf-gcc.exe",
+            "compilerPath": "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp-x32\\2601\\bin\\xtensa-esp32-elf-gcc.exe",
             "cStandard": "c11",
             "cppStandard": "c++17",
             "intelliSenseMode": "gcc-x86"

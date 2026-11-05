@@ -1,8 +1,14 @@
 #include "config.h"
+#include "wifiLoad.h"
+#include "utilities.h"
+#include "periodsLoad.h"
+#include "cardsLoad.h"
+#include "drawing.h"
+#include "sendEmail.h"
 
 void setup() {
-  pinMode(5, OUTPUT);
-  pinMode(ANALOG_PIN, INPUT);  // A ESP32-E lapkán az A0-re (IO36) pinre fogjuk forrasztani a 2:1 arányú fesz. osztót mivel a meglévő ESP32 v4.0 lapkákon is így van!!! Az új ESP32-C6 lapkákon a 4-es analógpin lesz az akkuhoz rendelve!
+  pinMode(EINK_POWER_PIN, OUTPUT);
+  pinMode(ANALOG_PIN, INPUT);  // A ESP32-E lapkán az A0-re (IO36) pinre fogjuk forrasztani a 2:1 arányú fesz. osztót mivel a meglévő ESP32 v4.0 lapkákon is így van!!!
   Serial.begin(115200);        // A ESP32 v4.0 lapkákon nincs belsőleg kivezetve analóg pinre az akku feszültség, az ESP32-E lapkán az A2-re van kivezetve, de hogy egységesen tudjuk kezelni ide is fesz. osztót forrasztunk az A0-ra
 
   wifiLoad();   // A Wifi kapcsolat beállítása, majd a frissítések ellenőrzése
@@ -20,11 +26,10 @@ void setup() {
     //timeToSleep = (360-15);         // TESZTELÉSHEZ: 6 percenként frissít, a frissítés kb. 15 mp-ig tart  //
     setTimeToSleep();  // Beállítja a szükséges alvási időtartamot
 
-    if (timeToSleep > 600 && !visszaAlszik) {  // Ha valamilyen hiba miatt újra kell frissíteni, akkor nem küldünk adatot a merülési táblázatba ill. emailre
+    if (timeToSleep > 600 && !visszaAlszik) {  // Ha valamilyen hiba miatt újra kell frissíteni, akkor nem küldünk emailt
       int accuLevel = analogRead(ANALOG_PIN);  // 3,3V -> 4095 (12 bit)
       DEBUG_PRINT("Akku szint: ");
       DEBUG_PRINTLN(accuLevel);
-      //sendBatteryLevel(accuLevel);             // Elküldi az aktuális elemfeszültség értékét a Google táblázatba, hogy lássuk a merülés tendenciáját
       if(accuLevel < warningAccuLevel) {
         emailSend(accuLevel);   // Elem merülés esetén figyelmeztető emailt küld
         errorCode = 4;

@@ -1,3 +1,8 @@
+#pragma once
+#include "classes.h"
+#include "config.h"
+#include "utilities.h"
+
 void timeWrite(byte ora, String tol, String ig) {
   int alap = 25;
   String oraSzam;
@@ -168,7 +173,7 @@ void lessonWindow(byte targyDb) {
 
 void drawing() {
 
-  digitalWrite(D8, HIGH);  // Ezzel feszültség alá helyezzük az E-ink vezérlőt. Az órarend kirajzolása után ki fogjuk kapcsolni. (Hogy alvás közben ne fogyasszon áramot)
+  digitalWrite(EINK_POWER_PIN, HIGH);  // Ezzel feszültség alá helyezzük az E-ink vezérlőt. Az órarend kirajzolása után ki fogjuk kapcsolni. (Hogy alvás közben ne fogyasszon áramot)
   drawInit();              // Az e-ink kijelzőre való rajzolás kezdeti beállításai
 
   do {
@@ -186,5 +191,5 @@ void drawing() {
   } while (display.nextPage());
   display.hibernate();
   display.end();
-  digitalWrite(D8, LOW);  // Lekapcsoljuk a feszültséget az E-ink kijelzőről
+  digitalWrite(EINK_POWER_PIN, LOW);  // Lekapcsoljuk a feszültséget az E-ink kijelzőről
 }

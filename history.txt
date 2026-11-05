@@ -3,3 +3,4 @@
 1.02 - WiFi hiba kezelése (20 mp-ig próbálkozik csak csatlakozni, ha nem sikerül, akkor alszik 1 napot)
 1.03 - A setTimeToSleep() átírása, verziószám kiírása alul
 1.1  - Több WiFi hálózaton is próbálkozik, Szülői értekezlet (oratol = -99) már jól jelenik meg, akku figyelmeztetés kiírása a kijelzőre
+1.2  - Az elemfeszültségek naplózását Google táblázatban végző kódrész eltávolítása, egyéb refaktorálások, C6 lapka támogatásának megszüntetése

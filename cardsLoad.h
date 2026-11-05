@@ -1,3 +1,8 @@
+#pragma once
+#include "classes.h"
+#include "config.h"
+#include "utilities.h"
+
 byte CardsLoad() {
 
   const char* nev;    // "Hétfő"

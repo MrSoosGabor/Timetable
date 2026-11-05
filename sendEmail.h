@@ -1,4 +1,7 @@
+#pragma once
+#include <ESP_SSLClient.h>  // BearSSL implementáció, amit az ESP_Mail_Client linkelése igényel
 #include <ESP_Mail_Client.h>
+#include "config.h"
 #include "secrets.h"
 
 #define SMTP_HOST "smtp.gmail.com"
@@ -28,15 +31,9 @@ void emailSend(int akku) {
   config.time.day_light_offset = 0;
   /* Declare the message class */
   SMTP_Message message;
-  if (ANALOG_PIN == 36) {  // Az ESP32 V4.0 és az ESP32-E lapkák esetén. Ezeket az értékeket kalibrálni kell!
-    warningAccuLevel = 1900;
-    criticalAccuLevel = 1850;
-    urgentAccuLevel = 1800;
-  } else {  //ESP32-6 Ezeket az értékeket kalibrálni kell!
-    warningAccuLevel = 1900;
-    criticalAccuLevel = 1850;
-    urgentAccuLevel = 1800;
-  }
+  warningAccuLevel = 1900;  // Ezeket az értékeket kalibrálni kell!
+  criticalAccuLevel = 1850;
+  urgentAccuLevel = 1800;
 
   /* Set the message headers */
   String nameMsg = "Jedlik órarend " + Terem;

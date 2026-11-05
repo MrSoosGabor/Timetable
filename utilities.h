@@ -1,3 +1,7 @@
+#pragma once
+#include "classes.h"
+#include "config.h"
+
 void drawInit() {
   //display.init(115200);  // DESPI-C02
   display.init(115200, true, 2, false);  // WaveShare Hat
