@@ -4,8 +4,8 @@
 #include <ESP32httpUpdate.h>
 
 // WiFi hálózatok listája - próbálkozás sorrendjében
-const char *ssid[] = {"IoT005705", "jcs"};
-const char *password[] = {"WP1x5EUZgXWj2", "Jcsengo2023"};
+const char *ssid[] = {"ASUS", "IoT005705", "jcs"};
+const char *password[] = {"KalapocskaNapocska", "WP1x5EUZgXWj2", "Jcsengo2023"};
 
 const int wifiNetworkCount = 2; // Hálózatok száma
 const int wifiTimeout = 20;     // Próbálkozási idő hálózatonként (másodperc)

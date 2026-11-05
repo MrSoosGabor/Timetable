@@ -1,0 +1,44 @@
+// e-Paper HAT lábkiosztás – FireBeetle lapok
+#if defined(ARDUINO_DFROBOT_FIREBEETLE_2_ESP32C6)   // FireBeetle 2 ESP32-C6
+  #define EPD_CS    D7    // GPIO18
+  #define EPD_DC    19    // GPIO19 (felirat: 19/SDA)
+  #define EPD_RST   20    // GPIO20 (felirat: 20/SCL)
+  #define EPD_BUSY  A1    // GPIO2
+  #define EPD_PWR   A2    // GPIO3
+
+#elif defined(ARDUINO_DFROBOT_FIREBEETLE_2_ESP32E)  // FireBeetle 2 ESP32-E
+  #define EPD_CS    D7    // GPIO13
+  #define EPD_DC    D2    // GPIO25
+  #define EPD_RST   D3    // GPIO26
+  #define EPD_BUSY  D4    // GPIO27
+  #define EPD_PWR   4     // GPIO4 (felirat: D12)
+
+#elif defined(ARDUINO_DFROBOT_FIREBEETLE_ESP32)     // FireBeetle ESP32 V4.0
+  #define EPD_CS    D7    // GPIO13
+  #define EPD_DC    D2    // GPIO25
+  #define EPD_RST   D3    // GPIO26
+  #define EPD_BUSY  D4    // GPIO27
+  #define EPD_PWR   4     // GPIO4
+
+#else
+  #error "Ismeretlen lap – válaszd ki a megfelelő FireBeetle lapot az Arduino IDE-ben!"
+#endif
+
+// DIN és CLK mindhárom lapon a hardveres SPI: MOSI és SCK
+#define EPD_DIN   MOSI
+#define EPD_CLK   SCK
+
+
+
+
+A lábválasztás szempontjai:
+
+A CS mindhárom lapon D7, így ez a vezeték mindig ugyanarra a feliratra kerül.
+A két ESP32-es lapon a DC, RST és BUSY ugyanaz (D2, D3, D4), és ezek a lábak egyik lapon sem strapping lábak.
+A PWR a GPIO4-re került, mert ez mindkét ESP32-es lapon biztonságos kimenet.
+
+V4.0-s lapon soha ne használd a D5 és D6 lábakat: ezek a GPIO9 és a GPIO10, amelyekre a flash memória van kötve, és használatuk lefagyasztja a lapot. Kerüld a D8, D9 és D10 lábakat is (GPIO5, 2 és 0), mert strapping lábak.
+
+A lapazonosítókat az arduino-esp32 boards.txt fájljából vettem, a D-jelölések GPIO-számait pedig a lapokhoz tartozó lábdefiníciós fájlokból. A V4.0-s lapon a GPIO4 feliratát nem tudtam képről ellenőrizni. Ha a tüskesoron nem találsz IO4 vagy A6 jelölésű lábat, a PWR mehet a 22/SCL lábra is, ha nem használsz I2C-t.
+
+Forrás: arduino-esp32 boards.txt, valamint a C6, az ESP32-E és a V4.0 lábdefiníciós fájlja.
