@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.h": "cpp",
+        "*.ino": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "enabled"
+}

@@ -1,4 +1,4 @@
-#pragma once
+#pragma once  // Megakadályozza, hogy ugyanazt a fejlécet egy fordítási egységben többször beillessze a fordító.
 
 // Másold ezt a fájlt secrets.h néven, és töltsd ki a saját (cserélt) hitelesítő adataiddal.
 // A secrets.h-t a Git figyelmen kívül hagyja, soha ne commitold!

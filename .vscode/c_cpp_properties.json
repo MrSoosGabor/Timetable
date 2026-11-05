@@ -3,12 +3,23 @@
         {
             "name": "ESP32",
             "includePath": [
+                "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp-x32\\2601\\xtensa-esp-elf\\include",
                 "${workspaceFolder}",
-                "${workspaceFolder}/fontos",
                 "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.12\\cores\\esp32",
                 "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.12\\cores\\esp32\\**",
                 "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.12\\variants\\dfrobot_firebeetle2_esp32e",
-                "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.12\\libraries\\**",
+                "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.12\\libraries\\WiFi\\src",
+                "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.12\\libraries\\Network\\src",
+                "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.12\\libraries\\NetworkClientSecure\\src",
+                "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.12\\libraries\\HTTPClient\\src",
+                "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.12\\libraries\\HTTPUpdate\\src",
+                "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.12\\libraries\\Update\\src",
+                "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.12\\libraries\\FS\\src",
+                "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.12\\libraries\\LittleFS\\src",
+                "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.12\\libraries\\SPI\\src",
+                "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.12\\libraries\\Wire\\src",
+                "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.12\\libraries\\SD\\src",
+                "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.12\\libraries\\Preferences\\src",
                 "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp-x32\\2601\\include",
                 "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp-x32\\2601\\xtensa-esp-elf\\include",
                 "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-libs\\3.3.12\\include\\lwip\\include",
@@ -17,8 +28,13 @@
                 "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-libs\\3.3.12\\include\\lwip\\port\\freertos\\include",
                 "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-libs\\3.3.12\\include\\**",
                 "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-libs\\3.3.12\\qio_qspi\\include",
-                "C:\\Users\\malag\\AppData\\Local\\Arduino15\\libraries\\**",
-                "C:\\Users\\malag\\Documents\\Arduino\\libraries\\**"
+                "C:\\Users\\malag\\Documents\\Arduino\\libraries\\ArduinoJson\\src",
+                "C:\\Users\\malag\\Documents\\Arduino\\libraries\\GxEPD2\\src",
+                "C:\\Users\\malag\\Documents\\Arduino\\libraries\\U8g2_for_Adafruit_GFX\\src",
+                "C:\\Users\\malag\\Documents\\Arduino\\libraries\\ESP_Mail_Client\\src",
+                "C:\\Users\\malag\\Documents\\Arduino\\libraries\\ESP_SSLClient\\src",
+                "C:\\Users\\malag\\Documents\\Arduino\\libraries\\Adafruit_GFX_Library",
+                "C:\\Users\\malag\\Documents\\Arduino\\libraries\\Adafruit_BusIO"
             ],
             "defines": [
                 "ESP32",
@@ -29,7 +45,7 @@
             "forcedInclude": [
                 "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.12\\cores\\esp32\\Arduino.h"
             ],
-            "compilerPath": "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp-x32\\2601\\bin\\xtensa-esp32-elf-gcc.exe",
+            "compilerPath": "C:\\Users\\malag\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp-x32\\2601\\bin\\xtensa-esp32-elf-g++.exe",
             "cStandard": "c11",
             "cppStandard": "c++17",
             "intelliSenseMode": "gcc-x86"

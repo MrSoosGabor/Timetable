@@ -1,4 +1,5 @@
 #pragma once
+// Megakadályozza, hogy ugyanazt a fejlécet egy fordítási egységben többször beillessze a fordító.
 #include "classes.h"
 #include "config.h"
 

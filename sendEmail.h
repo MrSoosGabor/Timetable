@@ -1,4 +1,4 @@
-#pragma once
+#pragma once  // Megakadályozza, hogy ugyanazt a fejlécet egy fordítási egységben többször beillessze a fordító.
 #include <ESP_SSLClient.h>  // BearSSL implementáció, amit az ESP_Mail_Client linkelése igényel
 #include <ESP_Mail_Client.h>
 #include "config.h"

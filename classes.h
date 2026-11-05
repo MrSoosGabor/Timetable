@@ -1,4 +1,4 @@
-#pragma once
+#pragma once  // Megakadályozza, hogy ugyanazt a fejlécet egy fordítási egységben többször beillessze a fordító.
 #include "Arduino.h" 
 
 #define classes_h

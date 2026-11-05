@@ -1,20 +1,18 @@
 #pragma once
+// Megakadályozza, hogy ugyanazt a fejlécet egy fordítási egységben többször beillessze a fordító.
 #include <WiFi.h>
-#include <WiFiClientSecure.h>
 #include <HTTPClient.h>
-#include <ESP32httpUpdate.h>
+#include <HTTPUpdate.h>
 #include "config.h"
 #include "secrets.h"
 
-// WiFi hálózatok listája - próbálkozás sorrendjében
 const int wifiTimeout = 20;     // Próbálkozási idő hálózatonként (másodperc)
 
 const char *fwImageURL = "http://zeus.jedlik.eu:8000/timetable.ino.bin";
 const char *fwVersionURL = "http://zeus.jedlik.eu:8000/version";
 // const char* fwImageURL = "https://timetable-jedlik.koyeb.app/update.bin";
 // const char* fwVersionURL = "https://timetable-jedlik.koyeb.app/version";
-//const char *fwImageURL = "https://added-dell-jedlik-c6786fd9.koyeb.app/update.bin";Í
-//const char *fwVersionURL = "https://added-dell-jedlik-c6786fd9.koyeb.app/version";
+
 
 void check_OTA()
 {
@@ -34,7 +32,8 @@ void check_OTA()
       {
         delay(100);
         DEBUG_PRINTLN(F("Frissítés folyamatban..."));
-        t_httpUpdate_return ret = ESPhttpUpdate.update(fwImageURL); // Telepíti a letöltött timetable.ino.bin firmware-t, majd újraindítja a mikrokontrollert
+        WiFiClient updateClient;
+        t_httpUpdate_return ret = httpUpdate.update(updateClient, fwImageURL); // Telepíti a letöltött timetable.ino.bin firmware-t, majd újraindítja a mikrokontrollert
         // Az újraindulást követően a soros monitoron megjelenik a "ets Jun 8 2016 00:22:57" üzenet. Ez a ROM bejelentkezési üzenete; ez az első dolog, ami kinyomtatódik, miután az ESP32 bekapcsol és a CPU elindul.
       }
     }
