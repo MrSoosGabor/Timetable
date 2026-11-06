@@ -8,6 +8,16 @@
 
 const int wifiTimeout = 20;     // Próbálkozási idő hálózatonként (másodperc)
 
+struct WifiCredentials
+{
+  uint32_t magic;
+  char ssid[33];
+  char password[65];
+};
+
+RTC_DATA_ATTR WifiCredentials rtcWifiCredentials = {};
+const uint32_t wifiCredentialsMagic = 0x57494649;
+
 const char *fwImageURL = "http://zeus.jedlik.eu:8000/timetable.ino.bin";
 const char *fwVersionURL = "http://zeus.jedlik.eu:8000/version";
 // const char* fwImageURL = "https://timetable-jedlik.koyeb.app/update.bin";
@@ -40,46 +50,73 @@ void check_OTA()
   } // end if http.begin
 } // end check_OTA()
 
+bool tryWifiNetwork(const char *networkSsid, const char *networkPassword)
+{
+  DEBUG_PRINT(F("Csatlakozás a(z) "));
+  DEBUG_PRINT(networkSsid);
+  DEBUG_PRINTLN(F(" hálózathoz..."));
+
+  WiFi.begin(networkSsid, networkPassword);
+
+  int szamlalo = 0;
+  int maxProba = wifiTimeout * 2;
+  while (WiFi.status() != WL_CONNECTED && szamlalo < maxProba)
+  {
+    delay(500);
+    Serial.print(F("."));
+    szamlalo++;
+  }
+
+  if (WiFi.status() != WL_CONNECTED)
+  {
+    DEBUG_PRINTLN();
+    DEBUG_PRINT(F("Nem sikerült csatlakozni a(z) "));
+    DEBUG_PRINT(networkSsid);
+    DEBUG_PRINTLN(F(" hálózathoz."));
+    WiFi.disconnect();
+    return false;
+  }
+
+  DEBUG_PRINTLN();
+  DEBUG_PRINT(F("Sikeres csatlakozás! IP cím: "));
+  DEBUG_PRINTLN(WiFi.localIP());
+
+  if (strlen(networkSsid) < sizeof(rtcWifiCredentials.ssid) &&
+      strlen(networkPassword) < sizeof(rtcWifiCredentials.password))
+  {
+    strncpy(rtcWifiCredentials.ssid, networkSsid, sizeof(rtcWifiCredentials.ssid) - 1);
+    strncpy(rtcWifiCredentials.password, networkPassword, sizeof(rtcWifiCredentials.password) - 1);
+    rtcWifiCredentials.magic = wifiCredentialsMagic;
+  }
+
+  return true;
+}
+
 void wifiLoad()
 {
   WiFi.setAutoReconnect(true);
   bool connected = false;
 
+  if (rtcWifiCredentials.magic == wifiCredentialsMagic &&
+      rtcWifiCredentials.ssid[0] != '\0' &&
+      rtcWifiCredentials.ssid[sizeof(rtcWifiCredentials.ssid) - 1] == '\0' &&
+      rtcWifiCredentials.password[sizeof(rtcWifiCredentials.password) - 1] == '\0')
+  {
+    connected = tryWifiNetwork(rtcWifiCredentials.ssid, rtcWifiCredentials.password);
+  }
+
   // Próbálkozás az összes WiFi hálózattal sorban
   for (int i = 0; i < wifiNetworkCount && !connected; i++)
   {
-    DEBUG_PRINT(F("Csatlakozás a(z) "));
-    DEBUG_PRINT(ssid[i]);
-    DEBUG_PRINTLN(F(" hálózathoz..."));
-
-    WiFi.begin(ssid[i], password[i]);
-
-    int szamlalo = 0;
-    int maxProba = wifiTimeout * 2; // 500ms-onként próbál, tehát 2x annyi próba kell
-
-    while (WiFi.status() != WL_CONNECTED && szamlalo < maxProba)
+    if (rtcWifiCredentials.magic == wifiCredentialsMagic &&
+      strcmp(ssid[i], rtcWifiCredentials.ssid) == 0 &&
+      strcmp(password[i], rtcWifiCredentials.password) == 0)
     {
-      delay(500);
-      Serial.print(F("."));
-      szamlalo++;
+      continue;
     }
 
-    if (WiFi.status() == WL_CONNECTED)
-    {
-      connected = true;
-      DEBUG_PRINTLN();
-      DEBUG_PRINT(F("Sikeres csatlakozás! IP cím: "));
-      DEBUG_PRINTLN(WiFi.localIP());
-    }
-    else
-    {
-      DEBUG_PRINTLN();
-      DEBUG_PRINT(F("Nem sikerült csatlakozni a(z) "));
-      DEBUG_PRINT(ssid[i]);
-      DEBUG_PRINTLN(F(" hálózathoz."));
-      WiFi.disconnect();
-      delay(1000); // Kis szünet a következő próbálkozás előtt
-    }
+    connected = tryWifiNetwork(ssid[i], password[i]);
+    if (!connected) delay(1000);
   }
 
   // Ha egyik hálózathoz sem sikerült csatlakozni

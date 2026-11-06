@@ -27,7 +27,8 @@ void setup() {
     setTimeToSleep();  // Beállítja a szükséges alvási időtartamot
 
     if (timeToSleep > 600 && !visszaAlszik) {  // Ha valamilyen hiba miatt újra kell frissíteni, akkor nem küldünk emailt
-      int accuLevel = analogRead(ANALOG_PIN);  // 3,3V -> 4095 (12 bit)
+      int accuLevel = readVbat();
+      // analogRead(ANALOG_PIN);  // 3,3V -> 4095 (12 bit)
       DEBUG_PRINT("Akku szint: ");
       DEBUG_PRINTLN(accuLevel);
       if(accuLevel < warningAccuLevel) {
@@ -37,6 +38,7 @@ void setup() {
     }
   }
 
+  WiFi.mode(WIFI_OFF);  // A WiFi kikapcsolása a kijelző frissítése előtt
   drawing();  // Kirajzolja az E-ink kijelzőre az aktuális nap órarendjét, illetve ha hiba volt, akkor a hibát
 
   esp_sleep_enable_timer_wakeup(timeToSleep * uS_TO_S_FACTOR);  // Beállítja a következő ébredésig visszalévő időt

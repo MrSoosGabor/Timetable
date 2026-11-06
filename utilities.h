@@ -2,6 +2,23 @@
 // Megakadályozza, hogy ugyanazt a fejlécet egy fordítási egységben többször beillessze a fordító.
 #include "classes.h"
 #include "config.h"
+#include <driver/rtc_io.h>
+#define DIV_EN 25
+#define VBAT_PIN 34
+
+float readVbat() {
+  pinMode(DIV_EN, OUTPUT); 
+  digitalWrite(DIV_EN, HIGH);
+  delay(10);
+  uint32_t mv = 0;
+  analogReadMilliVolts(A2);            // első mérés eldobva
+  for (int i = 0; i < 8; i++) {
+    delay(5);
+    mv += analogReadMilliVolts(VBAT_PIN);
+  }
+  digitalWrite(DIV_EN, LOW);
+  return (mv / 8.0) * 2.0 / 1000.0;   // osztási arány: 2
+}
 
 void drawInit() {
   //display.init(115200);  // DESPI-C02

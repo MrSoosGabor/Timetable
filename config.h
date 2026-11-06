@@ -43,7 +43,7 @@ int urgentAccuLevel = 1800;    // Ha az órarend elemfeszültsége 3,25 Volt al�
 #define MAX_ORA_SZAM 10                  // Az utolsó óra amit megjelenítünk a 10. óra. Ennél kettővel több sor kell a fejléc és a 0. óra miatt.
 
 #define ENABLE_GxEPD2_GFX 0
-#include <GxEPD2_3C.h>
+#include "src/GxEPD2_3C.h"
 #define GxEPD2_DISPLAY_CLASS GxEPD2_3C
 #include <U8g2_for_Adafruit_GFX.h>
 #define GxEPD2_DRIVER_CLASS GxEPD2_750c  // GDEW075T8   640x384, UC8159c (IL0371), (WF0583CZ09)
