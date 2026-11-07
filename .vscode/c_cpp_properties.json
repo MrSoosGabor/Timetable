@@ -40,6 +40,7 @@
                 "ESP32",
                 "CONFIG_IDF_TARGET_ESP32",
                 "ARDUINO_ARCH_ESP32",
+                "ARDUINO_DFROBOT_FIREBEETLE_2_ESP32E",
                 "ARDUINO=10607"
             ],
             "forcedInclude": [

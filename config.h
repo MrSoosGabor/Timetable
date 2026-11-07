@@ -20,16 +20,28 @@ int errorCode = 0;              // 0 - nincs hiba, 1 - A WiFi hálózat nem elé
 String errorMessages[10] = { "", "A WiFi nem elérhető", "Az API nem elérhető", "Nincs órarend", "Akku töltés kell!" };
 
 // 470k/470k feszültségosztót használunk mindhárom lapkatípushoz. (47nF kondenzátor a lefelezett akkufeszültség simításához) Az alábbi értékek pontosításához kalirálni kell!
-int warningAccuLevel = 2000;   // Ha az órarend elemfeszültsége 3,45 Volt alá esik, akkor figyelmeztető emailt küldünk. Ilyenkor töltés szükséges!!!
-int criticalAccuLevel = 1900;  // Ha az órarend elemfeszültsége 3,35 Volt alá esik, akkor figyelmeztető emailt küldünk. Ilyenkor kritikus figyelmeztetést küldünk!!!
-int urgentAccuLevel = 1800;    // Ha az órarend elemfeszültsége 3,25 Volt alá esik, akkor figyelmeztető emailt küldünk. Ilyenkor sürgősen töltés szükséges!!! 3,2V-nál már nem tud frissülni az órarend!!!
+// 3,3V -> 4095 (12 bit)
+/*
+  Szint 	        Feszültség  	Kb. maradék töltés  	Mit jelent
+  Normál  	      > 3,65 V  	  > 25%               	–
+  Figyelmeztetés	≤ 3,60 V	    ~15–20%	              Hamarosan tölteni kell
+  Sürgős	        ≤ 3,45 V	    ~5–8%	                Tölteni kell most
+  Leállás	        ≤ 3,30 V	    ~0–2%	                Ne indítsd el a WiFi-t, ne frissíts
+*/
+float warningAccuLevel = 3.6;   // Ha az órarend elemfeszültsége 3,6 Volt alá esik, akkor figyelmeztető emailt küldünk. Ilyenkor töltés szükséges!!!
+float criticalAccuLevel = 3.5;  // Ha az órarend elemfeszültsége 3,5 Volt alá esik, akkor figyelmeztető emailt küldünk. Ilyenkor kritikus figyelmeztetést küldünk!!!
+float urgentAccuLevel = 3.4;    // Ha az órarend elemfeszültsége 3,4 Volt alá esik, akkor figyelmeztető emailt küldünk. Ilyenkor sürgősen töltés szükséges!!! 3,2V-nál már nem tud frissülni az órarend!!!
 #define EINK_POWER_PIN 5  // Az E-ink vezérlő tápfeszültség-kapcsolója (ESP32-E-n ez a D8)
 
-// FireBeetle 2 ESP32 v4.0 és ESP32-E (DFR0654 / DFR0478) ADC pin
-#if defined(CONFIG_IDF_TARGET_ESP32)
-  #define ANALOG_PIN 36
+// Azonos IDE-board beállítás mellett a fizikai lapkaváltozatot a D2 jelzi:
+// v4.0: D2 szabadon hagyva (belső felhúzás) -> A0
+// ESP32-E: D2 GND-re kötve -> A2
+#if defined(ARDUINO_DFROBOT_FIREBEETLE_2_ESP32E) || defined(ARDUINO_DFROBOT_FIREBEETLE_ESP32) || defined(ARDUINO_ESP32_DEV)
+  #define BATTERY_BOARD_ID_PIN D2
+  #define VBAT_V4_PIN A0
+  #define VBAT_ESP32E_PIN A2
 #else
-  #error "Csak az ESP32 (v4.0 / ESP32-E) board támogatott!"
+  #error "Csak a FireBeetle ESP32 v4.0 és ESP32-E board támogatott!"
 #endif
 
 

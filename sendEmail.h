@@ -13,7 +13,7 @@ SMTPSession smtp;
 /* Callback function to get the Email sending status */
 void smtpCallback(SMTP_Status status);
 
-void emailSend(int akku) {
+void emailSend(float akku) {
   MailClient.networkReconnect(true);
   smtp.debug(1);
   /* Set the callback function to get the sending results */
@@ -31,9 +31,6 @@ void emailSend(int akku) {
   config.time.day_light_offset = 0;
   /* Declare the message class */
   SMTP_Message message;
-  warningAccuLevel = 1900;  // Ezeket az értékeket kalibrálni kell!
-  criticalAccuLevel = 1850;
-  urgentAccuLevel = 1800;
 
   /* Set the message headers */
   String nameMsg = "Jedlik órarend " + Terem;
@@ -45,7 +42,7 @@ void emailSend(int akku) {
   message.addRecipient(F("Órarend admin"), RECIPIENT_EMAIL);
   //Send raw text message
   String textMsg = Terem + " terem órarend elemfeszültsége 3,3 V alá esett! Töltés szükséges!\n";
-  textMsg += "Akku feszültség: " + String((akku / 2048.0) * 3.3) + " Volt\n";
+  textMsg += "Akku feszültség: " + String(akku) + " Volt\n";
   textMsg += "Az eddigi frissülések száma: " + String(bootCount) + "\n";
   textMsg += "Az aktuális frissülés ideje: " + String(aktHo) + ". hónap " + String(aktNap) + ". nap " + String(aktOraSzam) + " óra " + String(aktPercSzam) + " perc " + String(aktMpSzam) + " mp\n";
   textMsg += "A következő frissülés " + String(timeToSleep) + " mp múlva lesz,\n";

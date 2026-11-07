@@ -37,8 +37,18 @@ A CS mindhárom lapon D7, így ez a vezeték mindig ugyanarra a feliratra kerül
 A két ESP32-es lapon a DC, RST és BUSY ugyanaz (D2, D3, D4), és ezek a lábak egyik lapon sem strapping lábak.
 A PWR a GPIO4-re került, mert ez mindkét ESP32-es lapon biztonságos kimenet.
 
-V4.0-s lapon soha ne használd a D5 és D6 lábakat: ezek a GPIO9 és a GPIO10, amelyekre a flash memória van kötve, és használatuk lefagyasztja a lapot. Kerüld a D8, D9 és D10 lábakat is (GPIO5, 2 és 0), mert strapping lábak.
+V4.0-s lapon soha ne használd a D5 és D6 lábakat: ezek a GPIO9 és a GPIO10, amelyekre a flash memória van kötve, 
+és használatuk lefagyasztja a lapot. Kerüld a D8, D9 és D10 lábakat is (GPIO5, 2 és 0), mert strapping lábak.
 
-A lapazonosítókat az arduino-esp32 boards.txt fájljából vettem, a D-jelölések GPIO-számait pedig a lapokhoz tartozó lábdefiníciós fájlokból. A V4.0-s lapon a GPIO4 feliratát nem tudtam képről ellenőrizni. Ha a tüskesoron nem találsz IO4 vagy A6 jelölésű lábat, a PWR mehet a 22/SCL lábra is, ha nem használsz I2C-t.
-
-Forrás: arduino-esp32 boards.txt, valamint a C6, az ESP32-E és a V4.0 lábdefiníciós fájlja.
+A kétféle lapka azonosításához:
+Az azonosítást a közös D2 kivezetés fogja elvégezni, ami mindkét FireBeetle boarddefinícióban GPIO25-nek felel meg:
+ESP32-E: egy vezetékkel kösd össze a D2 és bármelyik GND pontot.
+ESP32 v4.0: a D2 maradjon bekötetlenül.
+A D2–GND összekötés csak lapkaazonosítóként szolgál; nem kell az akku méréséhez, és nem az osztó földelése.
+A kód a D2-t INPUT_PULLUP módban olvassa:
+D2 nincs GND-re kötve: a belső felhúzás magas (HIGH) szintet ad, a kód az A0-t választja.
+D2 GND-re van kötve: alacsony (LOW) szintet olvas, a kód az A2-t választja.
+Így tudja ugyanaz a firmware megkülönböztetni a két lapkát, miközben mindkettőn az ESP32-E boardot választod az IDE-ben. 
+A D2–GND kapcsolatot csak akkor használd, ha a D2 kivezetés valóban elérhető és nincs másra bekötve.
+A kód így az ESP32-E-n az A2-t, a v4.0-on az A0-t választja. 
+A módosítás a config.h-ban van; a formázásellenőrzés rendben lefutott.

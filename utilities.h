@@ -3,20 +3,20 @@
 #include "classes.h"
 #include "config.h"
 #include <driver/rtc_io.h>
-#define DIV_EN 25
-#define VBAT_PIN 34
 
 float readVbat() {
-  pinMode(DIV_EN, OUTPUT); 
-  digitalWrite(DIV_EN, HIGH);
-  delay(10);
+  pinMode(BATTERY_BOARD_ID_PIN, INPUT_PULLUP);
+  const uint8_t vbatPin = digitalRead(BATTERY_BOARD_ID_PIN) == LOW ? VBAT_ESP32E_PIN : VBAT_V4_PIN;
+  pinMode(vbatPin, INPUT);
+  DEBUG_PRINT("Akku ADC GPIO: ");
+  DEBUG_PRINTLN(vbatPin);
+
   uint32_t mv = 0;
-  analogReadMilliVolts(A2);            // első mérés eldobva
+  analogReadMilliVolts(vbatPin);       // első mérés eldobva
   for (int i = 0; i < 8; i++) {
     delay(5);
-    mv += analogReadMilliVolts(VBAT_PIN);
+    mv += analogReadMilliVolts(vbatPin);
   }
-  digitalWrite(DIV_EN, LOW);
   return (mv / 8.0) * 2.0 / 1000.0;   // osztási arány: 2
 }
 

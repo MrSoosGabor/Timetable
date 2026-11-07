@@ -7,9 +7,28 @@
 #include "sendEmail.h"
 
 void setup() {
+  Serial.begin(115200);
   pinMode(EINK_POWER_PIN, OUTPUT);
-  pinMode(ANALOG_PIN, INPUT);  // A ESP32-E lapkán az A0-re (IO36) pinre fogjuk forrasztani a 2:1 arányú fesz. osztót mivel a meglévő ESP32 v4.0 lapkákon is így van!!!
-  Serial.begin(115200);        // A ESP32 v4.0 lapkákon nincs belsőleg kivezetve analóg pinre az akku feszültség, az ESP32-E lapkán az A2-re van kivezetve, de hogy egységesen tudjuk kezelni ide is fesz. osztót forrasztunk az A0-ra
+  float accuLevel = readVbat();  // Az akkut ébredés után, a WiFi bekapcsolása előtt mérjük, így terhelés nélküli (nyugalmi) feszültséget kapunk
+  DEBUG_PRINT("Akku szint: ");
+  DEBUG_PRINTLN(accuLevel);
+  if (accuLevel < urgentAccuLevel) {
+    digitalWrite(EINK_POWER_PIN, HIGH);
+    drawInit();
+    const char *warningMessage = "Tölteni kell az akkut!!!";
+    do {
+      u8g2Fonts.setFont(u8g2_font_helvB18_tf);
+      int textWidth = u8g2Fonts.getUTF8Width(warningMessage);
+      u8g2Fonts.setCursor((display.width() - textWidth) / 2, display.height() / 2);
+      u8g2Fonts.print(warningMessage);
+    } while (display.nextPage());
+    display.hibernate();
+    display.end();
+    digitalWrite(EINK_POWER_PIN, LOW);
+
+    emailSend(accuLevel);
+    esp_deep_sleep_start();  //  Ébresztés nélkül mélyalvásba tesszük a lapkát, így nem próbálkozik újra és újra a WiFi-vel, és nem meríti tovább az akkut.
+  }
 
   wifiLoad();   // A Wifi kapcsolat beállítása, majd a frissítések ellenőrzése
   ++bootCount;  // A bootolások száma, hogy tudjuk ha nem sikerül egyből frissíteni az aktuális nap órarendjét (frissítések után visszaáll 1-re), illetve hogy sikerült-e egyből frissíteni az órarendet
@@ -27,19 +46,18 @@ void setup() {
     setTimeToSleep();  // Beállítja a szükséges alvási időtartamot
 
     if (timeToSleep > 600 && !visszaAlszik) {  // Ha valamilyen hiba miatt újra kell frissíteni, akkor nem küldünk emailt
-      int accuLevel = readVbat();
       // analogRead(ANALOG_PIN);  // 3,3V -> 4095 (12 bit)
       DEBUG_PRINT("Akku szint: ");
       DEBUG_PRINTLN(accuLevel);
-      if(accuLevel < warningAccuLevel) {
-        emailSend(accuLevel);   // Elem merülés esetén figyelmeztető emailt küld
+      if (accuLevel < warningAccuLevel) {
+        emailSend(accuLevel);  // Elem merülés esetén figyelmeztető emailt küld
         errorCode = 4;
       }
     }
   }
 
   WiFi.mode(WIFI_OFF);  // A WiFi kikapcsolása a kijelző frissítése előtt
-  drawing();  // Kirajzolja az E-ink kijelzőre az aktuális nap órarendjét, illetve ha hiba volt, akkor a hibát
+  drawing();            // Kirajzolja az E-ink kijelzőre az aktuális nap órarendjét, illetve ha hiba volt, akkor a hibát
 
   esp_sleep_enable_timer_wakeup(timeToSleep * uS_TO_S_FACTOR);  // Beállítja a következő ébredésig visszalévő időt
   char msg[80];
