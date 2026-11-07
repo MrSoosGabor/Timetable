@@ -12,7 +12,7 @@ void setup() {
   float accuLevel = readVbat();  // Az akkut ébredés után, a WiFi bekapcsolása előtt mérjük, így terhelés nélküli (nyugalmi) feszültséget kapunk
   DEBUG_PRINT("Akku szint: ");
   DEBUG_PRINTLN(accuLevel);
-  if (accuLevel < urgentAccuLevel) {
+  if (accuLevel < urgentAccuLevel) {  // Ha az akku szintje kritikus, akkor nem próbálkozik a WiFi-vel, hanem figyelmeztető üzenetet ír ki a kijelzőre, emailt küld, majd mélyalvásba teszi a lapkát
     digitalWrite(EINK_POWER_PIN, HIGH);
     drawInit();
     const char *warningMessage = "Tölteni kell az akkut!!!";
