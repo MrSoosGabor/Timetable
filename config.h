@@ -12,8 +12,8 @@
   #define DEBUG_PRINTLN(x)
 #endif
 
-const float FW_VERSION = 1.11;   // Ezt mindig át kell írni, ha egy újabb verziót akarunk publikálni! 
-                                // Ezt követően lefordítani timetable.ino.bin állományra, majd átnevezni update.bin-re, majd feltölteni a frissítési webhelyre és a version fájlt is ugyanezzel a verzió számmal!
+const float FW_VERSION = 1.2;   // Ezt mindig át kell írni, ha egy újabb verziót akarunk publikálni! 
+                                // Ezt követően lefordítani timetable.ino.bin állományra, majd átnevezni és feltölteni a frissítési webhelyre és a version fájlt is ugyanezzel a verzió számmal!
 
 String Terem = "";              // A teremszámok az órarendek MAC címéhez lesznek társítva, tehát minden órarend egy előre meghatározott teremhez lesz rendelve
 int errorCode = 0;              // 0 - nincs hiba, 1 - A WiFi hálózat nem elérhető, 2 - Az órarend API nem elérhető, 3 - Nincs órarend adat (pl.: hétvége, ünnep, szünet stb.), 4 - Merülőben az akku

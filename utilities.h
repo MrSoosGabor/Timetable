@@ -70,6 +70,7 @@ void setTimeToSleep() {
   // Csak a téli és nyári szüneteket vesszük figyelembe, ekkor nem fog frissülni az órarend
   // A téli szünet december 23 - január 2-ig tart az órarend számára minden évben
   // A nyári szünet az órarend számára mindig június 22-én kezdődik és szeptember 1-ig tart.
+  // 1 nap = 24 óra = 24*60 perc = 24*60*60 mp = 86400 mp
   if (aktHo == 12 && aktNap > 22) {
     timeToSleep = ((31 - aktNap) * 86400) + ((2 * 86400) - 15);  //
     return;
@@ -89,32 +90,32 @@ void setTimeToSleep() {
     return;
   }
 
-  // Ha korábban ébredne a kontroller, mint fél 8, akkor fél 8-ig még vissza altatjuk, mert előfordul, hogy csak fél 8-kor frissítik az órarendet
-  int napbolElteltMp = aktOraSzam * 3600 + aktPercSzam * 60 + aktMpSzam;  // Fél 8-ig a napból 7*3600+1800 mp = 27000 mp
-  if (napbolElteltMp < 27000) {
-    timeToSleep = 27000 - napbolElteltMp;
+  // Ha korábban ébredne a kontroller, mint fél 7, akkor fél 7-ig még vissza altatjuk, mert előfordul, hogy csak fél 8-kor frissítik az órarendet
+  int napbolElteltMp = aktOraSzam * 3600 + aktPercSzam * 60 + aktMpSzam;  // Fél 7-ig a napból 6*3600+1800 mp = 23400 mp telik el.
+  if (napbolElteltMp < 23400) {
+    timeToSleep = 23400 - napbolElteltMp;
     visszaAlszik = true;
     return;
   }
 
   if (kartyaSzam != 0) {
-    // ha hétfő és csütörtök közötti nap van és sikeresen betöltődött az órarend, akkor már csak a következő nap fél 8-kor próbálkozunk
-    // a péntek reggeli sikeres frissítés után plusz 3 napot altatjuk, vagyis hétfő fél 8-ig aludjon! (3 nap = 3*24*3600 mp = 3*86400 mp = 259200 mp)
-    // ha véletlenül szombaton, vagy vasárnap indulna újra a kontroller, akkor hétfő fél 8-ig altatjuk
+    // ha hétfő és csütörtök közötti nap van és sikeresen betöltődött az órarend, akkor már csak a következő nap fél 7-kor próbálkozunk
+    // a péntek reggeli sikeres frissítés után plusz 3 napot altatjuk, vagyis hétfő fél 7-ig aludjon! (3 nap = 3*24*3600 mp = 3*86400 mp = 259200 mp)
+    // ha véletlenül szombaton, vagy vasárnap indulna újra a kontroller, akkor hétfő fél 7-ig altatjuk
     if (hetAktNapSzama == 5) {  //Péntek
-      // A következő 3 napból éjfélig visszalévő mp-ek plusz a reggel fél 8-ig visszalévő mp-ek (27000-15 a kijelző frissülése)
+      // A következő 3 napból éjfélig visszalévő mp-ek plusz a reggel fél 7-ig visszalévő mp-ek (23400-15 a kijelző frissülése)
       // Serial.print(F("Ma éjfélig hátralévő másodpercek száma:")); Serial.println(aktOraSzam*3600+aktPercSzam*60+aktMpSzam);
-      timeToSleep = 259200 - (aktOraSzam * 3600 + aktPercSzam * 60 + aktMpSzam) + 26985;
+      timeToSleep = 3 * 86400 - (aktOraSzam * 3600 + aktPercSzam * 60 + aktMpSzam) + 23400 - 15;
     } else if (hetAktNapSzama == 6) {  //Szombat
-      // A következő 2 napból éjfélig visszalévő mp-ek plusz a reggel fél 6-ig visszalévő mp-ek (27000-15 a kijelző frissülése)
-      timeToSleep = 172800 - (aktOraSzam * 3600 + aktPercSzam * 60 + aktMpSzam) + 26985;
+      // A következő 2 napból éjfélig visszalévő mp-ek plusz a reggel fél 7-ig visszalévő mp-ek (23400-15 a kijelző frissülése)
+      timeToSleep = 2 * 86400 - (aktOraSzam * 3600 + aktPercSzam * 60 + aktMpSzam) + 23400 - 15;
     } else {
-      // Az adott napból éjfélig visszalévő mp-ek plusz az éjféltől a következő reggel fél 6-ig visszalévő mp-ek (27000-15 a kijelző frissülése)
-      timeToSleep = 86400 - (aktOraSzam * 3600 + aktPercSzam * 60 + aktMpSzam) + 26985;  //Vasárnap=0, Hétfő=1, ... Csütörtök=4
+      // Az adott napból éjfélig visszalévő mp-ek plusz az éjféltől a következő reggel fél 7-ig visszalévő mp-ek (23400-15 a kijelző frissülése)
+      timeToSleep = 86400 - (aktOraSzam * 3600 + aktPercSzam * 60 + aktMpSzam) + 23400 - 15;  //Vasárnap=0, Hétfő=1, ... Csütörtök=4
     }
   } else {
-    // Ha hétvége, ünnepnap, szünet stb. van, akkor csak másnap fél 8-kor próbálkozunk megint adatot letölteni az API-ról
-    timeToSleep = 86400 - (aktOraSzam * 3600 + aktPercSzam * 60 + aktMpSzam) + 26985;
+    // Ha hétvége, ünnepnap, szünet stb. van, akkor csak másnap fél 7-kor próbálkozunk megint adatot letölteni az API-ról
+    timeToSleep = 86400 - (aktOraSzam * 3600 + aktPercSzam * 60 + aktMpSzam) + 23400 - 15;
   }
 }
 
