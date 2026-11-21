@@ -1,5 +1,11 @@
 KELL? 1. Az ébredési idők eltolása az egyes termeknél, hogy ne egyszerre legyen a frissítés.
-	Az eredeti fél 8-as ébredés előtt az egyes termekhez tartozó órarendek Teremszam*20 mp-cel előbb ébredjenek.
-	Pl.: A 303 terem 303*20=6060 mp = 101 perccel fél 8 előtt, vagyis 6 óra előtt 11 perccel, 5 óra 49 perckor ébred
+	Az eredeti fél 7-es ébredés előtt az egyes termekhez tartozó órarendek Teremszam*20 mp-cel előbb ébredjenek.
+	Pl.: A 303 terem 303*20=6060 mp = 101 perccel fél 7 előtt, vagyis 5 óra előtt 11 perccel, 5 óra 49 perckor ébred
 
 2. Szünetek kezelése: Ha a Wifi kapcsolat létrejön, de nincs letölthető adat, akkor ne próbálkozzon 1 óra múlva, csak másnap.
+
+3. Aznapi órarend fél 7 és háromnegyed 8 közötti módosításának kezelése: 
+
+4. Ha kétoszlopban jelennek meg az órák, akkor kisebb betűkkel jelenjenek meg az adatok.
+
+5. A verziószám kiírása mellett jelenítsük meg, hogy melyik WiFi hálózatról töltötte le az adatokat.
